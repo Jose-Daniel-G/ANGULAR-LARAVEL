@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { environment } from 'src/environments/environment';  // Importar environment
+import { environment } from '../../environments/environment';  // Importar environment
 
 @Injectable({
   providedIn: 'root',
