@@ -11,9 +11,9 @@ export class AuthenticationService {
 
   user: any;
   token: any = "";
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private Router) {
     // TIENE QUE CARGARSE EL USUARIO Y EL TOKEN'
-    this.loadStorage();
+    this.loadStorage.getItem("user");
   }
 
   loadStorage() {
@@ -66,18 +66,16 @@ export class AuthenticationService {
       })
     );
   }
-  
   saveLocalStorageResponse(resp: any): boolean {
     if (resp.access_token && resp.user) {
       localStorage.setItem("token", resp.access_token);
-      localStorage.setItem("user", JSON.stringify(resp.user)); // ← ya aquí lo guardas bien
+      localStorage.setItem("user", JSON.stringify(resp.user));
       this.user = resp.user;
       this.token = resp.access_token;
       return true;
     }
     return false;
   }
-  
   // User Info
   // user() {
   //   const user: any = localStorage.getItem('user');
@@ -99,21 +97,26 @@ export class AuthenticationService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
-    return this.http.post(`${environment.URL_SERVICIOS}/logout`,{ allDevice: allDevice },{ headers: headers }
+    return this.http.post(
+      `${environment.URL_SERVICIOS}/logout`,
+      { allDevice: allDevice },
+      { headers: headers }
     );
   }
-  // Método para obtener el usuario
-  getUser() {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      this.user = JSON.parse(storedUser);  // Se asegura de que 'user' esté actualizado desde el localStorage
-    }
-    return this.user;  // Devuelve el usuario almacenado en el servicio
-  }
-  
+
   // Register
-  register(name: string,email: string,password: string,password_confirmation: string) {
-    const data = {name: name,email: email,password: password,password_confirmation: password_confirmation,};
+  register(
+    name: string,
+    email: string,
+    password: string,
+    password_confirmation: string
+  ) {
+    const data = {
+      name: name,
+      email: email,
+      password: password,
+      password_confirmation: password_confirmation,
+    };
     return this.http.post(`${environment.URL_SERVICIOS}/register`, data);
   }
 
