@@ -9,7 +9,7 @@
         <div class="card-body login-card-body">
           <p class="login-box-msg">Registro de un nuevo miembro</p>
 
-          <form action="../../index.html" method="post">
+          <form (ngSubmit)="onSubmit(registerForm)" #registerForm="ngForm">
             <div class="input-group mb-3">
               <input type="text" class="form-control" placeholder="Nombre completo">
               <div class="input-group-append">
@@ -44,12 +44,7 @@
             </div>
             <div class="row">
               <div class="col-8">
-                <div class="icheck-primary">
-                  <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-                  <label for="agreeTerms">
-                    I agree to the <a href="#">terms</a>
-                  </label>
-                </div>
+
               </div>
               <!-- /.col -->
               <div class="col-4">
@@ -58,8 +53,7 @@
               <!-- /.col -->
             </div>
           </form>
-
-          <div class="social-auth-links text-center">
+          <!-- <div class="social-auth-links text-center">
             <a href="#" class="btn btn-block btn-primary">
               <i class="fab fa-facebook mr-2"></i>
               Regístrate usando Facebook
@@ -68,10 +62,11 @@
               <i class="fab fa-google-plus mr-2"></i>
               Regístrate usando Google+
             </a>
-          </div>
+          </div> -->
 
-          <a routerLink="/login" class="text-center">Registrar una nueva cuenta</a>
         </div>
+
+
         <!-- /.form-box -->
       </div><!-- /.card -->
     </div>

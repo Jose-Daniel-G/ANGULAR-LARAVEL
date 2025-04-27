@@ -1,0 +1,53 @@
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service'; // Asegúrate de la ruta correcta
+
+@Component({
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
+})
+export class RegisterComponent implements OnInit {
+  name: any = null;
+  surname: any = null;
+  email: any = null;
+  password: any = null;
+  repit_password: any = null;
+
+  constructor(
+    public authService: AuthService,
+  ) { }
+
+  ngOnInit(): void {
+  }
+
+  registro() {
+    if (!this.surname || !this.name || !this.email || !this.password || !this.repit_password) {
+      alert("NECESITAS DIGITAR TODOS LOS CAMPOS PARA EL REGISTRO");
+      return;
+    }
+
+    if (this.password !== this.repit_password) {
+      alert("NECESITAS DIGITAR IGUAL LAS CONTRASEÑAS");
+      return;
+    }
+
+    let data = {
+      name: this.name,
+      surname: this.surname,
+      email: this.email,
+      password: this.password,
+    };
+
+    this.authService.registro(data).subscribe({
+      next: (resp: any) => {
+        console.log(resp);
+        // Aquí puedes manejar la respuesta exitosa, como redirigir al usuario
+        // o mostrar un mensaje de éxito.
+      },
+      error: (error: any) => {
+        console.log(error);
+        // Aquí puedes manejar el error de registro, como mostrar un mensaje de error al usuario.
+      }
+    });
+  }
+}
