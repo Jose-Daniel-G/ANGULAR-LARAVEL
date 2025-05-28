@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse"
+      data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/login">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/register">Registrarse</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/forgot-password">Olvidé contraseña</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/reset-password">Recuperar contraseña</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
+            aria-expanded="false">
+            <i class="fa fa-user" aria-hidden="true"></i>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/dashboard">Dashboard</a></li>
+            <li><a class="dropdown-item" routerLink="/logout">Cerrar sesión</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
