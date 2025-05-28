@@ -3,3 +3,6 @@ php artisan vendor:publish --provider="Tymon\JWTAuth\Providers\LaravelServicePro
 php artisan jwt:secret
 php artisan make:controller AuthController
 git config --get remote.origin.url
+
+## Each time install backend execute
+php artisan jwt:secret

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -46,11 +48,17 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'No autorizado'], 401);
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $token = $user->createToken('api_token')->plainTextToken;
+
+            return response()->json([
+                'message' => 'Token generado exitosamente',
+                'token' => $token
+            ]);
         }
 
-        return $this->respondWithToken($token);
+        return response()->json(['message' => 'Credenciales incorrectas'], 401);
     }
 
     /**
