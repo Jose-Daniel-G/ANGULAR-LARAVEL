@@ -20,6 +20,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|min:2|max:100',
             'email' => 'required|string|email|max:100|unique:users',
+            // 'organismo_id' => 'required|integer|exists:organismos,id',
             'password' => 'required|string|confirmed|min:6',
         ]);
 
@@ -31,6 +32,7 @@ class AuthController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'organismo_id' => 11,
         ]);
 
         return response()->json([
@@ -46,20 +48,19 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
-
-        if (Auth::attempt($credentials)) {
-            $user = Auth::user();
-            $token = $user->createToken('api_token')->plainTextToken;
-
-            return response()->json([
-                'message' => 'Token generado exitosamente',
-                'token' => $token
-            ]);
+        if (!Auth::attempt($request->only('email', 'password'))) {
+            return response()->json(['error' => 'No autorizado'], 401);
         }
 
-        return response()->json(['message' => 'Credenciales incorrectas'], 401);
+        $user = Auth::user();
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+        ]);
     }
+
 
     /**
      * Obtener los datos del usuario autenticado.
