@@ -1,0 +1,30 @@
+<div class="container">
+  <h1>Detalles del Formulario</h1>
+
+  <div *ngIf="loading">
+    <p>Cargando información del formulario...</p>
+  </div>
+
+  <div *ngIf="error">
+    <p class="error-message">Error: {{ error }}</p>
+  </div>
+
+  <div *ngIf="formularioData">
+    <h2>{{ formularioData.nombre }}</h2>
+    <p>{{ formularioData.descripcion }}</p>
+
+    <h3>Preguntas:</h3>
+    <ul class="question-list">
+      <li *ngFor="let pregunta of formularioData.preguntas">
+        <strong>{{ pregunta.etiqueta || pregunta.nombre }}</strong> ({{ pregunta.tipo }})
+        <ul>
+          <li>Descripción: {{ pregunta.descripcion }}</li>
+          <li>Requerido: {{ pregunta.requerido }}</li>
+          <li>Solo lectura: {{ pregunta.sololectura || 'N/A' }}</li>
+          <li *ngIf="pregunta.limiteCaracteres">Límite caracteres: {{ pregunta.limiteCaracteres }}</li>
+          <li>ID Pregunta: {{ pregunta.idPregunta }}</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>

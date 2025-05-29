@@ -16,12 +16,10 @@ export interface LoginRequest {
 // src/app/models/login.model.ts
 
 export interface UsuarioLoginResponse {
-  // ... tus otros campos de usuario
-  //token: string; // Elimina o comenta esta línea
   access_token: string; // Agrega esta línea, coincidiendo con el backend
-  token_type: string; // Agrega esto para tipar
-  expires_in: number; // Agrega esto para tipar
-  user: { // El backend devuelve el usuario anidado en una propiedad 'user'
+  token_type: string;   // Agrega esto para tipar
+  expires_in: number;   // Agrega esto para tipar
+  user: {               // usuario anidado en una propiedad 'user'
     id: number;
     name: string;
     email: string;
@@ -35,5 +33,4 @@ export interface UsuarioLoginResponse {
   };
   roles?: string[]; // Si los roles vienen fuera de 'user'
   permissions?: string[]; // Si los permisos vienen fuera de 'user'
-  // message?: string; // Si hay un mensaje de éxito
 }
