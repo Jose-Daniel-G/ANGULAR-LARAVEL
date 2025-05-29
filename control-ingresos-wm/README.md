@@ -1,3 +1,15 @@
+npm install bootstrap@5 --save
+npm install bootstrap jquery popper.js --save
+npm install bootstrap-icons
+npm install admin-lte --save
+
+npm install sortablejs --save
+npm install overlayscrollbars --save
+npm install jsvectormap --save              //ANGULAR 19
+npm install apexcharts ng-apexcharts --save //ANGULAR 19
+
+ng add @angular/material ----NO AQUI
+npm install @ngx-translate/core @ngx-translate/http-loader --save ----NO AQUI
 # ControlIngresosWm
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.11.
