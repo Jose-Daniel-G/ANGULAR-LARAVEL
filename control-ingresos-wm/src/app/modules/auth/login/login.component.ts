@@ -50,7 +50,7 @@ export class LoginComponent {
       next: (response: UsuarioLoginResponse) => { // Tipado de la respuesta
         // ¡Manejo del token y datos del usuario!
         // Asegúrate de que la respuesta del backend contenga el token
-        if (response && response.token) {
+        if (response && response.access_token) {
           this.authService.setCurrentUser(response); // Guarda toda la respuesta (incluyendo token, roles, etc.)
           console.log('Login exitoso. Usuario:', this.authService.getCurrentUser());
           this.router.navigate(['/dashboard']);
