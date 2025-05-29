@@ -15,166 +15,23 @@
 
     <h3>Preguntas:</h3>
     <form>
-      <div class="row" *ngFor="let pregunta of formularioData.preguntas">
-        <div class="col-md-12 col-lg-8 mb-6">
-          <div class="form-group">
-            <label [for]="'pregunta_' + pregunta.idPregunta">
-              <strong>{{ pregunta.etiqueta || pregunta.nombre }}</strong>
-              <span *ngIf="pregunta.requerido === 'SI'" class="required-indicator">*</span>
-            </label>
+<div *ngIf="mesesChequeo.length > 0">
+  <h3>Meses</h3>
+  <div class="d-flex flex-wrap gap-3">
+    <div *ngFor="let pregunta of mesesChequeo" class="form-check form-check-inline">
+      <input
+        type="checkbox"
+        class="form-check-input"
+        [id]="pregunta.nombre"
+        [name]="pregunta.nombre"
+        [disabled]="pregunta.sololectura === 'SI'">
+      <label class="form-check-label" [for]="pregunta.nombre">
+        {{ pregunta.etiqueta }}
+      </label>
+    </div>
+  </div>
+</div>
 
-            <ng-container [ngSwitch]="pregunta.tipo">
-              <!-- Checkbox -->
-              <div *ngSwitchCase="'CHEQUEO'" class="form-check mt-2">
-                <input
-                  type="checkbox"
-                  class="form-check-input"
-                  [id]="'pregunta_' + pregunta.idPregunta"
-                  [name]="pregunta.nombre"
-                  [disabled]="pregunta.sololectura === 'SI'"
-                >
-                <label class="form-check-label" [for]="'pregunta_' + pregunta.idPregunta">
-                  {{ pregunta.descripcion }}
-                </label>
-              </div>
-
-              <!-- Texto -->
-              <div *ngSwitchCase="'TEXTO'">
-                <input
-                  type="text"
-                  class="form-control"
-                  [id]="'pregunta_' + pregunta.idPregunta"
-                  [name]="pregunta.nombre"
-                  [placeholder]="pregunta.descripcion"
-                  [maxLength]="pregunta.limiteCaracteres"
-                  [readonly]="pregunta.sololectura === 'SI'"
-                >
-              </div>
-
-              <!-- Numérico -->
-              <div *ngSwitchCase="'NUMERICO'">
-                <input
-                  type="number"
-                  class="form-control"
-                  [id]="'pregunta_' + pregunta.idPregunta"
-                  [name]="pregunta.nombre"
-                  [placeholder]="pregunta.descripcion"
-                  [maxLength]="pregunta.limiteCaracteres"
-                  [readonly]="pregunta.sololectura === 'SI'"
-                >
-              </div>
-
-              <!-- Correo -->
-              <div *ngSwitchCase="'CORREO'">
-                <input
-                  type="email"
-                  class="form-control"
-                  [id]="'pregunta_' + pregunta.idPregunta"
-                  [name]="pregunta.nombre"
-                  [placeholder]="pregunta.descripcion"
-                  [maxLength]="pregunta.limiteCaracteres"
-                  [readonly]="pregunta.sololectura === 'SI'"
-                >
-              </div>
-
-              <!-- Lista -->
-              <div *ngSwitchCase="'LISTA'">
-                <select
-                  class="form-select"
-                  [id]="'pregunta_' + pregunta.idPregunta"
-                  [name]="pregunta.nombre"
-                  [disabled]="pregunta.sololectura === 'SI'"
-                >
-                  <option value="" disabled selected>Seleccione {{ pregunta.descripcion }}</option>
-                  <option value="opcion1">Opción 1 (ejemplo)</option>
-                  <option value="opcion2">Opción 2 (ejemplo)</option>
-                </select>
-              </div>
-
-              <!-- Dirección -->
-              <div *ngSwitchCase="'DIRECCION'">
-                <input
-                  type="text"
-                  class="form-control"
-                  [id]="'pregunta_' + pregunta.idPregunta"
-                  [name]="pregunta.nombre"
-                  [placeholder]="pregunta.descripcion"
-                  [maxLength]="pregunta.limiteCaracteres"
-                  [readonly]="pregunta.sololectura === 'SI'"
-                >
-              </div>
-
-              <!-- Oculto -->
-              <div *ngSwitchCase="'OCULTO'">
-                <input
-                  type="hidden"
-                  [name]="pregunta.nombre"
-                  [id]="'pregunta_' + pregunta.idPregunta"
-                >
-              </div>
-
-              <!-- Calculado Webservice -->
-              <div *ngSwitchCase="'CALCULATED_WEBSERVICE'">
-                <input
-                  type="text"
-                  class="form-control"
-                  [id]="'pregunta_' + pregunta.idPregunta"
-                  [name]="pregunta.nombre"
-                  [value]="pregunta.funcion"
-                  readonly
-                >
-              </div>
-
-              <!-- Dinero -->
-              <div *ngSwitchCase="'DINEROSR'">
-                <input
-                  type="text"
-                  class="form-control"
-                  [id]="'pregunta_' + pregunta.idPregunta"
-                  [name]="pregunta.nombre"
-                  value="Valor Calculado"
-                  readonly
-                >
-              </div>
-
-              <!-- Código de barras -->
-              <div *ngSwitchCase="'CODIGOBARRAS'">
-                <div class="barcode-placeholder">
-                  Código de Barras: {{ pregunta.nombre }} (Generar aquí)
-                </div>
-              </div>
-
-              <!-- Formulario ID -->
-              <div *ngSwitchCase="'FORMULARIO_ID'">
-                <input
-                  type="text"
-                  class="form-control"
-                  [id]="'pregunta_' + pregunta.idPregunta"
-                  [name]="pregunta.nombre"
-                  value="ID de Formulario"
-                  readonly
-                >
-              </div>
-
-              <!-- Tipo desconocido -->
-              <div *ngSwitchDefault>
-                <input
-                  type="text"
-                  class="form-control"
-                  [id]="'pregunta_' + pregunta.idPregunta"
-                  [name]="pregunta.nombre"
-                  [placeholder]="'Tipo: ' + pregunta.tipo"
-                  [readonly]="pregunta.sololectura === 'SI'"
-                >
-              </div>
-            </ng-container>
-
-            <small *ngIf="pregunta.descripcion && pregunta.tipo !== 'CHEQUEO'" class="form-text text-muted">
-              {{ pregunta.descripcion }}
-            </small>
-          </div>
-        </div>
-      </div>
     </form>
 
   </div>
