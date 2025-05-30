@@ -1,6 +1,7 @@
 npm install bootstrap@5 --save
 npm install bootstrap jquery popper.js --save
 npm install bootstrap-icons
+npm install admin-lte@3.2.0 --save
 npm install admin-lte --save
 
 npm install sortablejs --save

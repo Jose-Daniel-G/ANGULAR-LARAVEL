@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { AdminLteService } from '../services/admin-lte.service';
+
 import { NgIf } from '@angular/common';
 
 @Component({
@@ -8,13 +10,25 @@ import { NgIf } from '@angular/common';
   standalone: true,
   imports: [RouterLink, RouterOutlet, NgIf],
   templateUrl: './layout.component.html',
-  styleUrl: './layout.component.css'
+  styleUrl: './layout.component.css',
 })
 export class LayoutComponent {
   user: any; // Variable para almacenar el usuario
 
-  constructor(private authService: AuthService) {
+  constructor(
+    private authService: AuthService,
+    private adminLte: AdminLteService
+  ) {
     this.user = this.authService.getCurrentUser(); // Asigna el usuario después de que el servicio esté inicializado
+  }
+
+  ngAfterViewInit(): void {
+    const toggleBtn = document.querySelector('[data-lte-toggle="sidebar"]');
+
+    toggleBtn?.addEventListener('click', (e) => {
+      e.preventDefault();
+      this.adminLte.toggleSidebar(); // mejor usar el servicio
+    });
   }
 
   logout() {
