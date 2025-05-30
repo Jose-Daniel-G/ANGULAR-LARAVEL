@@ -15,10 +15,7 @@ import { NgIf } from '@angular/common';
 export class LayoutComponent {
   user: any; // Variable para almacenar el usuario
 
-  constructor(
-    private authService: AuthService,
-    private adminLte: AdminLteService
-  ) {
+  constructor(private authService: AuthService,private adminLte: AdminLteService) {
     this.user = this.authService.getCurrentUser(); // Asigna el usuario después de que el servicio esté inicializado
   }
 
